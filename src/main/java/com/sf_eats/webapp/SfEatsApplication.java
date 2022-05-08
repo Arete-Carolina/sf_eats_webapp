@@ -3,11 +3,13 @@ package com.sf_eats.webapp;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import javax.sql.DataSource;
 
 @SpringBootApplication
+@EnableConfigurationProperties
 @EnableJpaRepositories("com.sf_eats.webapp.repository")
 public class SfEatsApplication {
 

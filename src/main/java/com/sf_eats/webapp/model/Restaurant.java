@@ -1,5 +1,7 @@
 package com.sf_eats.webapp.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,7 +9,8 @@ import javax.persistence.*;
 public class Restaurant {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.AUTO, generator="native")
+    @GenericGenerator(name = "native", strategy = "native")
     private long id;
     @Column(name ="applicant")
     private String applicant;
@@ -17,7 +20,7 @@ public class Restaurant {
     private String address;
     @Column(name ="photo")
     private String photo;
-    @Column(name ="foodItems")
+    @Column(name ="foodItems",length=1000)
     private String foodItems;
     @Column(name ="latitude")
     private float latitude;
@@ -28,6 +31,9 @@ public class Restaurant {
     @Column(name ="location")
     private String location;
 
+    public Restaurant(){
+
+    }
     public Restaurant(String applicant, String locationDescription, String address, String photo, String foodItems, float latitude, float longitude, String schedule, String location) {
         this.applicant = applicant;
         this.locationDescription = locationDescription;

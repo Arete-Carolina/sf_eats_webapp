@@ -7,13 +7,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -64,15 +62,24 @@ public class RestaurantController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-//@PostMapping("/restaurants")
-//    public ResponseEntity<Restaurant> createTutorial(@RequestBody Restaurant restaurant) {
-//        try {
-//            Restaurant _restaurant = restaurantRepository
-//                    .save(new Restaurant(restaurant.getTitle(), restaurant.getDescription(), false));
-//            return new ResponseEntity<>(_restaurant, HttpStatus.CREATED);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+
+    @GetMapping("/restaurants/{id}")
+    public ResponseEntity<Restaurant> getRestaurantById(@PathVariable("id") long id) {
+        Optional<Restaurant> restaurantData = restaurantRepository.findById(id);
+        return restaurantData
+                .map(restaurant -> new ResponseEntity<>(restaurant, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+
+    @PostMapping("/restaurants")
+    public ResponseEntity<Restaurant> createRestaurant(@RequestBody Restaurant restaurant) {
+        try {
+            Restaurant _restaurant = restaurantRepository.save(restaurant);
+            return new ResponseEntity<>(_restaurant, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
 

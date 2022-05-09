@@ -9,10 +9,10 @@ The user is also able to see the restaurant details by clicking on the restauran
 Additionally, the user is able to add a new restaurant by simply clicking on “Restaurant Registration”. Restaurant registration will generate a state in which the user is able to add all the needed info. If the user skips a field, the program will simply take null as a response. Once the user has registered the restaurant, the restaurant will show up at the end of the list of restaurants.
 
 
-TABLE OF CONTENTS
+<!-- TABLE OF CONTENTS
 
 Back-end:
-Front-end:
+Front-end: -->
 
 
 TECH STACK AND ARCHITECTURAL CONSIDERATIONS
@@ -20,9 +20,15 @@ TECH STACK AND ARCHITECTURAL CONSIDERATIONS
 Back-end: Spring Boot, Java, MySQL
 Front-end: React.js, Bootstrap
 MVC: throughout the whole project MVC was applied. In the front-end, the controller has the *, and the model has the **. In the back-end, the controller has RestaurantController.java, and the model has Restaurant.java.
-OOP: Throughout the project, inheritance was applied to use attributes and
+OOP: Throughout the project, inheritance was applied to use properties from one class to other classes. For instance, *****
 
-Names, relationships and purposes of all components
+****Names, relationships and purposes of all components****
+
+ENDPOINTS
+
+GET - Sort the list of restaurants by name and address
+GET - View restaurants details
+POST - Add restaurants
 
 FULL WEB APP
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import RestaurantListItem from './components/RestaurantListItem';
 
 const BACKEND_URL = 'http://localhost:8080/api/restaurants';
 
@@ -46,9 +47,9 @@ function App() {
   }, []);
 
   const RenderingBasedOnFetchStatus = {
-    [FetchStatus.Success.name]: <div>Fetch Success</div>,
+    [FetchStatus.Success.name]: <ul>{restaurants.map((restaurant) => RestaurantListItem(restaurant))}</ul>,
     [FetchStatus.Failure.name]: <div>Fetch Failure</div>,
-    [FetchStatus.Loading.name]: <div>Fetch Loading</div>,
+    [FetchStatus.Loading.name]: <div>Loading...</div>,
   };
 
   return (

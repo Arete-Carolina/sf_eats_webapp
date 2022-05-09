@@ -7,17 +7,7 @@ import RestaurantDetail from './components/RestaurantDetail';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import _ from 'lodash';
-import { BACKEND_URL } from './config';
-
-class FetchStatus {
-  static Success = new FetchStatus('Success');
-  static Loading = new FetchStatus('Loading');
-  static Failure = new FetchStatus('Failure');
-
-  constructor(name) {
-    this.name = name;
-  }
-}
+import { BACKEND_URL, FetchStatus } from './Constants';
 
 class SortByOption {
   static IdAsc = new SortByOption('Id Ascending', 'id,asc');
@@ -149,7 +139,7 @@ function App() {
   return (
     <section className='App'>
       <Navbar bg='dark' variant='dark'>
-        <Navbar.Brand href='#home' style={{ marginLeft: '1em' }}>
+        <Navbar.Brand href='/' style={{ marginLeft: '1em' }}>
           SF Eats
         </Navbar.Brand>
       </Navbar>

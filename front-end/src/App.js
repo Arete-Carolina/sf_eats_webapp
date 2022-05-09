@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import RestaurantListItem from './components/RestaurantListItem';
-import { Navbar, Pagination } from 'react-bootstrap';
+import { Navbar, Pagination, InputGroup, Dropdown, DropdownButton } from 'react-bootstrap';
+import { Switch, Route, Routes } from 'react-router-dom';
+import RestaurantDetail from './components/RestaurantDetail';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import _ from 'lodash';
-
-const BACKEND_URL = 'http://localhost:8080/api/restaurants';
+import { BACKEND_URL } from './config';
 
 class FetchStatus {
   static Success = new FetchStatus('Success');
@@ -19,13 +20,16 @@ class FetchStatus {
 }
 
 class SortByOption {
-  static AddressAsc = new SortByOption('Address Ascending');
-  static AddressDesc = new SortByOption('Address Descending');
-  static NameAsc = new SortByOption('Name Descending');
-  static NameDesc = new SortByOption('Name Descending');
+  static IdAsc = new SortByOption('Id Ascending', 'id,asc');
+  static IdDesc = new SortByOption('Id Descending', 'id,desc');
+  static AddressAsc = new SortByOption('Address Ascending', 'address,asc');
+  static AddressDesc = new SortByOption('Address Descending', 'address,desc');
+  static NameAsc = new SortByOption('Name Ascending', 'applicant,asc');
+  static NameDesc = new SortByOption('Name Descending', 'applicant,desc');
 
-  constructor(label) {
+  constructor(label, queryVal) {
     this.label = label;
+    this.queryVal = queryVal;
   }
 }
 
@@ -56,9 +60,10 @@ function App() {
   const [totalElements, setTotalElements] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [sortBy, setSortBy] = useState(SortByOption.IdAsc);
 
-  async function fetchRestaurants(page = 1, sortByCol = 'id', sortByDir = 'asc') {
-    const sortBy = sortByCol + ',' + sortByDir;
+  async function fetchRestaurants(page = 1, sortByOption = SortByOption.IdAsc) {
+    const sortBy = sortByOption.queryVal;
     page -= 1;
     let searchParams = new URLSearchParams({ page, sortBy });
     try {
@@ -90,9 +95,9 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      fetchRestaurants(pageNumber);
+      fetchRestaurants(pageNumber, sortBy);
     })();
-  }, [pageNumber]);
+  }, [pageNumber, sortBy]);
 
   const pagesForPagination = getPagesForPagination(pageNumber, totalPages);
   const firstPageOnPagination = pagesForPagination[0];
@@ -122,6 +127,25 @@ function App() {
     [FetchStatus.Loading.name]: <div>Loading...</div>,
   };
 
+  const Home = () => (
+    <>
+      <InputGroup d='mb-3'>
+        <DropdownButton variant='outline-primary' title='Sort By' id='input-group-dropdown-1'>
+          <Dropdown.Item onClick={() => setSortBy(SortByOption.NameAsc)}>{SortByOption.NameAsc.label}</Dropdown.Item>
+          <Dropdown.Item onClick={() => setSortBy(SortByOption.NameDesc)}>{SortByOption.NameDesc.label}</Dropdown.Item>
+          <Dropdown.Divider />
+          <Dropdown.Item onClick={() => setSortBy(SortByOption.AddressAsc)}>
+            {SortByOption.AddressAsc.label}
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => setSortBy(SortByOption.AddressDesc)}>
+            {SortByOption.AddressDesc.label}
+          </Dropdown.Item>
+        </DropdownButton>
+      </InputGroup>
+      {RenderingBasedOnFetchStatus[fetchStatus.name]}
+    </>
+  );
+
   return (
     <section className='App'>
       <Navbar bg='dark' variant='dark'>
@@ -129,8 +153,10 @@ function App() {
           SF Eats
         </Navbar.Brand>
       </Navbar>
-
-      {RenderingBasedOnFetchStatus[fetchStatus.name]}
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path=':restaurantId' element={<RestaurantDetail />} />
+      </Routes>
     </section>
   );
 }

@@ -6,11 +6,6 @@ export default function RegisterRestaurantModal({
   showRegisterRestaurantModal,
   onHide: handleCloseRegisterRestaurantModal,
 }) {
-  console.log({
-    showRegisterRestaurantModal,
-    handleCloseRegisterRestaurantModal,
-  });
-
   const businessNameRef = useRef(null);
   const locationDescriptionRef = useRef(null);
   const addressRef = useRef(null);
@@ -25,7 +20,6 @@ export default function RegisterRestaurantModal({
       cache: 'no-cache',
       headers: {
         'Content-Type': 'application/json',
-        // 'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: JSON.stringify({
         applicant: businessNameRef?.current?.value || null,

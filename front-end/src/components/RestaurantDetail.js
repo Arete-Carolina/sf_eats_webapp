@@ -40,7 +40,6 @@ export default function RestaurantDetail() {
       try {
         setFetchStatus(FetchStatus.Loading);
         const restaurant = await (await fetch(BACKEND_URL + '/' + params.restaurantId)).json();
-        console.log(restaurant);
         setRestaurant(restaurant);
         setFetchStatus(FetchStatus.Success);
       } catch (e) {

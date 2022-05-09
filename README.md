@@ -31,7 +31,7 @@ OOP: Throughout the project, inheritance was applied to use properties from one 
 
 # How to Run
 ## Front End
-deployed via AWS amplify at [https://main.d2tqd144jl9pon.amplifyapp.com](https://main.d2tqd144jl9pon.amplifyapp.com)
+deployed via Netlify at [https://main--flourishing-clafoutis-c197a4.netlify.app/6](https://main--flourishing-clafoutis-c197a4.netlify.app/6)
 ```
 cd front-end
 npm start

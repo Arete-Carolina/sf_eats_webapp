@@ -1,4 +1,4 @@
-export const BACKEND_URL = 'http://localhost:8080/api/restaurants';
+export const BACKEND_URL = 'http://sfeatsbackend-env.eba-puurspjt.us-east-1.elasticbeanstalk.com/api/restaurants';
 export class FetchStatus {
   static Success = new FetchStatus('Success');
   static Loading = new FetchStatus('Loading');

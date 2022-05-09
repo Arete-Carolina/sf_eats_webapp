@@ -31,15 +31,17 @@ OOP: Throughout the project, inheritance was applied to use properties from one 
 
 # How to Run
 ## Front End
+deployed via AWS amplify at [https://main.d2tqd144jl9pon.amplifyapp.com](https://main.d2tqd144jl9pon.amplifyapp.com)
 ```
 cd front-end
 npm start
 ```
-frontend will run on port 3000
+frontend will run on port 3000 (localhost)
 
 ## Back End
 ```
 ./mvnw spring-boot:run
 ```
-backend will run on port 8080
+backend will run on port 5000 (localhost)
+Runs on Elastic Beanstalk at [http://sfeatsbackend-env.eba-puurspjt.us-east-1.elasticbeanstalk.com/api/restaurants](http://sfeatsbackend-env.eba-puurspjt.us-east-1.elasticbeanstalk.com/api/restaurants);
 

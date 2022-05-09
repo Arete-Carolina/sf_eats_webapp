@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "https://main.d2tqd144jl9pon.amplifyapp.com" })
 @RequestMapping("/api")
 public class RestaurantController {
     @Autowired

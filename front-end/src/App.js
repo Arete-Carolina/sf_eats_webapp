@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import RestaurantListItem from './components/RestaurantListItem';
-import { Navbar, Pagination, InputGroup, Dropdown, DropdownButton } from 'react-bootstrap';
+import { Navbar, Pagination, InputGroup, Dropdown, DropdownButton, Button } from 'react-bootstrap';
 import { Switch, Route, Routes } from 'react-router-dom';
 import RestaurantDetail from './components/RestaurantDetail';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import _ from 'lodash';
 import { BACKEND_URL, FetchStatus } from './Constants';
+import RegisterRestaurantModal from './components/RegisterRestaurantModal';
 
 class SortByOption {
   static IdAsc = new SortByOption('Id Ascending', 'id,asc');
@@ -51,7 +52,9 @@ function App() {
   const [pageNumber, setPageNumber] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [sortBy, setSortBy] = useState(SortByOption.IdAsc);
-
+  const [showRegisterRestaurantModal, setShowRegisterRestaurantModal] = useState(false);
+  const handleOpenRegisterRestaurantModal = () => setShowRegisterRestaurantModal(true);
+  const handleCloseRegisterRestaurantModal = () => setShowRegisterRestaurantModal(false);
   async function fetchRestaurants(page = 1, sortByOption = SortByOption.IdAsc) {
     const sortBy = sortByOption.queryVal;
     page -= 1;
@@ -142,7 +145,14 @@ function App() {
         <Navbar.Brand href='/' style={{ marginLeft: '1em' }}>
           SF Eats
         </Navbar.Brand>
+        <Button variant='primary' onClick={handleOpenRegisterRestaurantModal}>
+          Register a Restaurant!
+        </Button>
       </Navbar>
+      <RegisterRestaurantModal
+        showRegisterRestaurantModal={showRegisterRestaurantModal}
+        onHide={handleCloseRegisterRestaurantModal}
+      />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path=':restaurantId' element={<RestaurantDetail />} />

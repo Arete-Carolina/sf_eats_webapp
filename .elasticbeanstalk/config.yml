@@ -1,0 +1,5 @@
+branch-defaults:
+  main:
+    environment: Sfeatsbackend-env
+global:
+  profile: eb-cli
